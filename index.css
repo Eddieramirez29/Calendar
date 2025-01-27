@@ -111,3 +111,8 @@
     background-color: rgb(146, 198, 244);
 }
 
+.calendar button:active
+{
+    transform: scale(0.9);
+}
+
