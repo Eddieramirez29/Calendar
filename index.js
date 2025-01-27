@@ -1,15 +1,3 @@
-// Days of week by number
-const daysOfWeek =
-{
-    mo: document.getElementById("1"),
-    tu: document.getElementById("2"),
-    we: document.getElementById("3"),
-    th: document.getElementById("4"),
-    fr: document.getElementById("5"),
-    sa: document.getElementById("6"),
-    su: document.getElementById("7")
-};
-
 // Function to create an object for the buttons
 const createDayButtonsObject = () =>
 {
@@ -52,7 +40,7 @@ const drawNumbersOnCalendar = () =>
     }
 
 }
-drawNumbersOnCalendar();
+
 // Function to get the current date and display it in the format "Month Year"
 const getCurrentDate = () =>
     {
@@ -181,4 +169,5 @@ const convertDayNumberToNameDay = (day) =>
     
     // Call the function to display the current date
     getCurrentDate();
+    drawNumbersOnCalendar();
     
