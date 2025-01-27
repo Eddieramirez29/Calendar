@@ -31,7 +31,7 @@ const drawNumbersOnCalendar = () =>
     let startDay = firstDayOfMonth.getDay() + 1;
     //Get the number of the last day of the month
     let endDay = lastDayOfMonth.getDate();
-    var number;
+    const currentDay = currentDate.getDate();
 
     let dayCounter = 1;
 
@@ -40,6 +40,8 @@ const drawNumbersOnCalendar = () =>
         if (number >= startDay && dayCounter <= endDay)
         {
             dayButtons[`day${number}`].textContent = String(dayCounter);
+            dayButtons[`day${number}`].style.pointerEvents = 'auto';
+            dayButtons[`day${currentDay}`].style.backgroundColor = "#ff8599";
             dayCounter++;
         }
         else
@@ -63,6 +65,7 @@ const getCurrentDate = () =>
         //Get the current day of week(1(Monday)--> 7(Sunday))
         const day = currentDate.getDay();
         const dayName = convertDayNumberToNameDay(day);
+        console.log(day)
     
         // Get the current month (Note: Months are zero-indexed, so add 1)
         const month = currentDate.getMonth() + 1;
