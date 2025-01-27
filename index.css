@@ -90,21 +90,22 @@
     margin: auto;
 }
 
-.calendar div
+.calendar button
 {
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 14px;
-    font-weight: 600;
     border-radius: 5px;
     height: 100%;
     width: 100%;
+    border: none;
+    background-color: aliceblue;
+    font-weight: 600;
 }
 
-.highlight
+.calendar button:hover
 {
-    background-color: #a259ff;
-    color: white;
-    font-weight: bold;
+    background-color: rgb(146, 198, 244);
 }
+
