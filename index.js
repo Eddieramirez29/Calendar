@@ -45,6 +45,7 @@ const drawNumbersOnCalendar = () =>
         else
         {
             dayButtons[`day${number}`].textContent = "";
+            dayButtons[`day${number}`].style.pointerEvents = 'none';
         }
     }
 
