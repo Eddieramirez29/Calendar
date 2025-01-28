@@ -1,14 +1,14 @@
 // Function to create an object mapping day numbers to their DOM elements (e.g., day1, day2...day35)
 const createDayButtonsObject = () =>
+{
+    const dayButtons = {};
+    for (let i = 1; i <= 35; i++)
     {
-        const dayButtons = {};
-        for (let i = 1; i <= 35; i++)
-        {
-            // Map each day element to a key (e.g., dayButtons.day1 = document.getElementById("day-1"))
-            dayButtons[`day${i}`] = document.getElementById(`day-${i}`);
-        }
-        return dayButtons;
-    };
+        // Map each day element to a key (e.g., dayButtons.day1 = document.getElementById("day-1"))
+        dayButtons[`day${i}`] = document.getElementById(`day-${i}`);
+    }
+    return dayButtons;
+};
     
     // Function to populate the calendar grid with dates and highlight the current day
     const drawNumbersOnCalendar = () =>
@@ -58,6 +58,7 @@ const getCurrentDate = () =>
     {
         // Get the HTML element where the date will be displayed
         const date = document.getElementById("date");
+        const currentDayOfWeek = document.getElementById("currentDay");
         
         // Create a new Date object representing the current date
         const currentDate = new Date();
@@ -65,7 +66,7 @@ const getCurrentDate = () =>
         //Get the current day of week(1(Monday)--> 7(Sunday))
         const day = currentDate.getDay();
         const dayName = convertDayNumberToNameDay(day);
-        console.log(day)
+        currentDayOfWeek.innerText = dayName;
     
         // Get the current month (Note: Months are zero-indexed, so add 1)
         const month = currentDate.getMonth() + 1;
@@ -106,7 +107,6 @@ const convertMonthNumberToNameMonth = (month) =>
     return months[month - 1] || "Invalid month";
 }
     
-    // Call the function to display the current date
-    getCurrentDate();
-    drawNumbersOnCalendar();
-    
+// Call the function to display the current date
+getCurrentDate();
+drawNumbersOnCalendar();
