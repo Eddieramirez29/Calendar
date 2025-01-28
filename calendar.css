@@ -111,7 +111,7 @@ body
 {
     display: grid;
     grid-template-columns: repeat(7, 1fr); /* 7 columns */
-    grid-template-rows: repeat(5, 1fr);  /* 5 Rows */
+    grid-template-rows: repeat(6, 1fr);  /* 5 Rows */
     gap: 5px; /* gap between cells */
     width: 300px;
     height: 250px;

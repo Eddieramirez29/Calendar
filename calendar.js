@@ -1,8 +1,41 @@
+const back = document.getElementById("back");
+const go = document.getElementById("go");
+
+const currentDate = new Date();
+ // Get the current month (Note: Months are zero-indexed, so add 1)
+let month = currentDate.getMonth() + 1;
+ // Get the current year
+let year = currentDate.getFullYear();
+
+
+go.addEventListener("click", function()
+{
+    month = month + 1;
+    if(month === 13)
+    {
+        month = 1;
+        year = year + 1;
+    }
+    getCurrentDate();
+    drawNumbersOnCalendar();
+})
+
+back.addEventListener("click", function()
+{
+    month = month - 1;
+    if(month === 0)
+    {
+        month = 12;
+        year = year - 1;
+    }
+    getCurrentDate();
+    drawNumbersOnCalendar();
+})
 // Function to create an object mapping day numbers to their DOM elements (e.g., day1, day2...day35)
 const createDayButtonsObject = () =>
 {
     const dayButtons = {};
-    for (let i = 1; i <= 35; i++)
+    for (let i = 1; i <= 42; i++)
     {
         // Map each day element to a key (e.g., dayButtons.day1 = document.getElementById("day-1"))
         dayButtons[`day${i}`] = document.getElementById(`day-${i}`);
@@ -15,11 +48,11 @@ const createDayButtonsObject = () =>
     {
         // Initialize DOM references for calendar buttons
         const dayButtons = createDayButtonsObject();
-        const currentDate = new Date();
+        // const currentDate = new Date();
         
         // Calculate first and last day of the current month
-        const firstDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
-        const lastDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
+        const firstDayOfMonth = new Date(year, month - 1, 1);
+        const lastDayOfMonth = new Date(year, month - 1 + 1, 0);
         
         // Determine the grid position of the first day (Monday = 1, Sunday = 7)
         let startDay = firstDayOfMonth.getDay() + 1; // +1 shifts getDay() (0=Sunday) to 1=Monday
@@ -29,7 +62,7 @@ const createDayButtonsObject = () =>
         let dayCounter = 1; // Tracks the actual day number of the month
     
         // Iterate through all 35 grid cells (5 weeks)
-        for (let number = 1; number <= 35; number++)
+        for (let number = 1; number <= 42; number++)
         {
             // Populate cells only for valid days of the month
             if (number >= startDay && dayCounter <= endDay)
@@ -68,11 +101,7 @@ const getCurrentDate = () =>
         const dayName = convertDayNumberToNameDay(day);
         currentDayOfWeek.innerText = dayName;
     
-        // Get the current month (Note: Months are zero-indexed, so add 1)
-        const month = currentDate.getMonth() + 1;
-    
-        // Get the current year
-        const year = currentDate.getFullYear();
+
     
         // Convert the month number to its corresponding name
         const monthName = convertMonthNumberToNameMonth(month);
