@@ -19,7 +19,9 @@ const drawNumbersOnCalendar = () =>
     let startDay = firstDayOfMonth.getDay() + 1;
     //Get the number of the last day of the month
     let endDay = lastDayOfMonth.getDate();
-    const currentDay = currentDate.getDate();
+    let currentDay = currentDate.getDate();
+    currentDay = currentDay + 3;
+    
 
     let dayCounter = 1;
 
