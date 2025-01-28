@@ -1,47 +1,57 @@
-// Function to create an object for the buttons
+// Function to create an object mapping day numbers to their DOM elements (e.g., day1, day2...day35)
 const createDayButtonsObject = () =>
-{
-    const dayButtons = {};
-    for (let i = 1; i <= 35; i++)
     {
-        dayButtons[`day${i}`] = document.getElementById(`day-${i}`);
-    }
-    return dayButtons;
-};
-
-const drawNumbersOnCalendar = () =>
-{
-    const dayButtons = createDayButtonsObject();
-    const currentDate = new Date();
-    const firstDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
-    const lastDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
-    // Get the first day of the month (1: Sunday, 2: Monday, ..., 7: Saturday)
-    let startDay = firstDayOfMonth.getDay() + 1;
-    //Get the number of the last day of the month
-    let endDay = lastDayOfMonth.getDate();
-    let currentDay = currentDate.getDate();
-    currentDay = currentDay + 3;
+        const dayButtons = {};
+        for (let i = 1; i <= 35; i++)
+        {
+            // Map each day element to a key (e.g., dayButtons.day1 = document.getElementById("day-1"))
+            dayButtons[`day${i}`] = document.getElementById(`day-${i}`);
+        }
+        return dayButtons;
+    };
     
-
-    let dayCounter = 1;
-
-    for (let number = 1; number <= 35; number++)
+    // Function to populate the calendar grid with dates and highlight the current day
+    const drawNumbersOnCalendar = () =>
     {
-        if (number >= startDay && dayCounter <= endDay)
+        // Initialize DOM references for calendar buttons
+        const dayButtons = createDayButtonsObject();
+        const currentDate = new Date();
+        
+        // Calculate first and last day of the current month
+        const firstDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+        const lastDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
+        
+        // Determine the grid position of the first day (Monday = 1, Sunday = 7)
+        let startDay = firstDayOfMonth.getDay() + 1; // +1 shifts getDay() (0=Sunday) to 1=Monday
+        let endDay = lastDayOfMonth.getDate();       // Total days in the month
+        let currentDayGrid = startDay + currentDate.getDate() - 1; // Grid position of today's date
+    
+        let dayCounter = 1; // Tracks the actual day number of the month
+    
+        // Iterate through all 35 grid cells (5 weeks)
+        for (let number = 1; number <= 35; number++)
         {
-            dayButtons[`day${number}`].textContent = String(dayCounter);
-            dayButtons[`day${number}`].style.pointerEvents = 'auto';
-            dayButtons[`day${currentDay}`].style.backgroundColor = "#ff8599";
-            dayCounter++;
+            // Populate cells only for valid days of the month
+            if (number >= startDay && dayCounter <= endDay)
+            {
+                dayButtons[`day${number}`].textContent = String(dayCounter);
+                dayButtons[`day${number}`].style.pointerEvents = 'auto'; // Enable interactions
+                dayCounter++;
+            }
+            // Clear cells outside the current month
+            else
+            {
+                dayButtons[`day${number}`].textContent = "";
+                dayButtons[`day${number}`].style.pointerEvents = 'none'; // Disable interactions
+            }
         }
-        else
+    
+        // Highlight the current day's cell (executed once after the loop)
+        if (dayButtons[`day${currentDayGrid}`])
         {
-            dayButtons[`day${number}`].textContent = "";
-            dayButtons[`day${number}`].style.pointerEvents = 'none';
+            dayButtons[`day${currentDayGrid}`].style.backgroundColor = "#ff8599";
         }
-    }
-
-}
+    };
 
 // Function to get the current date and display it in the format "Month Year"
 const getCurrentDate = () =>
@@ -111,63 +121,15 @@ const convertDayNumberToNameDay = (day) =>
 
 
     // Function to convert a month number to its corresponding month name
-    const convertMonthNumberToNameMonth = (month) =>
-    {
-        // Return the name of the month based on the number provided
-        if (month === 1)
-        {
-            return "January";
-        }
-        else if (month === 2)
-        {
-            return "February";
-        }
-        else if (month === 3)
-        {
-            return "March";
-        }
-        else if (month === 4)
-        {
-            return "April";
-        }
-        else if (month === 5)
-        {
-            return "May";
-        }
-        else if (month === 6)
-        {
-            return "June";
-        }
-        else if (month === 7)
-        {
-            return "July";
-        }
-        else if (month === 8)
-        {
-            return "August";
-        }
-        else if (month === 9)
-        {
-            return "September";
-        }
-        else if (month === 10)
-        {
-            return "October";
-        }
-        else if (month === 11)
-        {
-            return "November";
-        }
-        else if (month === 12)
-        {
-            return "December";
-        }
-        else
-        {
-            // Return an error message if an invalid month is passed
-            return "Invalid month";
-        }
-    }
+const convertMonthNumberToNameMonth = (month) =>
+{
+    const months =
+    [
+        "January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+    ];
+    return months[month - 1] || "Invalid month";
+}
     
     // Call the function to display the current date
     getCurrentDate();
