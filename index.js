@@ -80,43 +80,18 @@ const getCurrentDate = () =>
         date.textContent = String(monthName + " " + year);
     }
     
-// Function to convert a day number to its corresponding day name
+// Converts a day number (1-7) to its corresponding name (Monday-Sunday)
 const convertDayNumberToNameDay = (day) =>
-    {
-        // Return the name of the day based on the number provided
-        if (day === 1)
-        {
-            return "Monday";
-        }
-        else if (day === 2)
-        {
-            return "Tuesday";
-        }
-        else if (day === 3)
-        {
-            return "Wednesday";
-        }
-        else if (day === 4)
-        {
-            return "Thursday";
-        }
-        else if (day === 5)
-        {
-            return "Friday";
-        }
-        else if (day === 6)
-        {
-            return "Saturday";
-        }
-        else if (day === 7)
-        {
-            return "Sunday";
-        }
-        else
-        {
-            return "Invalid day number";
-        }
-    };
+{
+    const daysOfWeek =
+    [
+        "Monday", "Tuesday", "Wednesday",
+        "Thursday", "Friday", "Saturday", "Sunday"
+    ];
+    return (day >= 1 && day <= 7)
+        ? daysOfWeek[day - 1]
+        : "Invalid day number";
+};
     
 
 
