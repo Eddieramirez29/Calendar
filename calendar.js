@@ -6,6 +6,7 @@ const currentDate = new Date();
 let month = currentDate.getMonth() + 1;
  // Get the current year
 let year = currentDate.getFullYear();
+let today;
 
 
 go.addEventListener("click", function()
@@ -57,7 +58,7 @@ const createDayButtonsObject = () =>
         // Determine the grid position of the first day (Monday = 1, Sunday = 7)
         let startDay = firstDayOfMonth.getDay() + 1; // +1 shifts getDay() (0=Sunday) to 1=Monday
         let endDay = lastDayOfMonth.getDate();       // Total days in the month
-        let currentDayGrid = startDay + currentDate.getDate() - 1; // Grid position of today's date
+        
     
         let dayCounter = 1; // Tracks the actual day number of the month
     
@@ -78,13 +79,31 @@ const createDayButtonsObject = () =>
                 dayButtons[`day${number}`].style.pointerEvents = 'none'; // Disable interactions
             }
         }
-    
-        // Highlight the current day's cell (executed once after the loop)
-        if (dayButtons[`day${currentDayGrid}`])
-        {
-            dayButtons[`day${currentDayGrid}`].style.backgroundColor = "#ff8599";
-        }
+
+        colorNumber(startDay, dayButtons);
+
     };
+
+const colorNumber = (startDay, dayButtons) =>
+{
+     // Get the current month (Note: Months are zero-indexed, so add 1)
+    const currentMonth = currentDate.getMonth() + 1;
+ // Get the current year
+    const currentYear = currentDate.getFullYear();
+
+    const currentDayGrid = startDay + currentDate.getDate() - 1; // Grid position of today's date
+    // Highlight the current day's cell (executed once after the loop)
+    if (dayButtons[`day${currentDayGrid}`] && currentMonth === month && currentYear === year)
+    {
+        dayButtons[`day${currentDayGrid}`].style.backgroundColor = "#ff8599";
+        today = currentDayGrid;
+    }
+    else
+    {
+        dayButtons[`day${today}`].style.backgroundColor = "#F0F8FF";
+        console.log(currentDayGrid);
+    }
+}
 
 // Function to get the current date and display it in the format "Month Year"
 const getCurrentDate = () =>
