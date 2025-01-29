@@ -101,7 +101,6 @@ const colorNumber = (startDay, dayButtons) =>
     else
     {
         dayButtons[`day${today}`].style.backgroundColor = "#F0F8FF";
-        console.log(currentDayGrid);
     }
 }
 
